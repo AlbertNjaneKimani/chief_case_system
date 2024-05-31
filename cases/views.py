@@ -64,7 +64,6 @@ def cases(request):
     search_status = request.GET.get('search_status')
     search_date = request.GET.get('search_date')
     
-    # Filter cases based on search parameters
     cases = Case.objects.all()
     if search_name:
         cases = cases.filter(title__icontains=search_name)
@@ -76,9 +75,7 @@ def cases(request):
     if search_status:
         cases = cases.filter(status=search_status)
     if search_date:
-        # Convert search_date to datetime object
         search_date = datetime.strptime(search_date, '%Y-%m-%d').date()
-        # Filter by the date part of the DateTimeField
         cases = cases.filter(date_created__date=search_date)
 
     for case in cases:
@@ -157,37 +154,60 @@ def resolvecase(request, case_id):
     return redirect('cases')
 
 @login_required
+def completeappointment(request, case_id):
+    appointment = get_object_or_404(Appointment, id=case_id)
+    if request.user.is_staff: 
+        appointment.appointment_status = 'completed'
+        appointment.save()
+        messages.success(request, 'appointment completed Successfully.')
+    else:
+        messages.error(request, 'You do not have permission to complete appointment.')
+    return redirect('appointments')    
+
+@login_required
 def bookappointment(request, case_id):
-    # Retrieve the case object based on the case_id
+    
     case = get_object_or_404(Case, pk=case_id)
     
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
             appointment = form.save(commit=False)
-            appointment.case = case  # Assign the case object to the appointment
-            appointment.chief = request.user  # Assign the logged-in user as the chief
-            appointment.complainant = request.user  # Assign the logged-in user as the complainant
-            appointment.appointment_status = 'active'  # Set the appointment status to active
+            appointment.case = case  
+            appointment.chief = request.user  
+            appointment.complainant = request.user  
+            appointment.appointment_status = 'active' 
             appointment.save()
             
-            # Send email notification to the complainant
             send_appointment_email(appointment)
             
             messages.success(request, 'Invitation created successfully.')
-            # Redirect to the same page with a success message
             return redirect(reverse('bookappointment', args=[case_id]))
     else:
         form = AppointmentForm()
     return render(request, 'book_appointment.html', {'form': form})
 
 def send_appointment_email(appointment):
-    complainant_email = appointment.complainant.email
-    complainant = appointment.complainant.first_name
+    
+    complainant_email = appointment.case.complainant.email
+    complainant_name = appointment.case.complainant.get_full_name()
+    
     subject = 'Invitation To Chiefs Office'
-    message = message = f"Dear Albert,\n\nYou have Been Invited to chiefs office concerning the case that you submitted. See the invitation details below:\n\nCase Number: {appointment.case.id}\nCase Name: {appointment.case.title}\nAppointment Date: {appointment.date}\nAppointment Time: {appointment.time}\nVenue: {appointment.location}\n\nBest Regards\n\nArea Chief."
-
-    send_mail(subject, message, 'from@example.com', [complainant_email], fail_silently=False)
+    message = (
+        f"Dear {complainant_name},\n\n"
+        "You have Been Invited to chiefs office concerning the case that you submitted. "
+        "See the invitation details below:\n\n"
+        f"Case Number: {appointment.case.id}\n"
+        f"Case Name: {appointment.case.title}\n"
+        f"Appointment Date: {appointment.date}\n"
+        f"Appointment Time: {appointment.time}\n"
+        f"Venue: {appointment.location}\n\n"
+        "Best Regards,\n\n"
+        "Area Chief."
+    )
+    
+    # Send the email
+    send_mail(subject, message, 'your_email@example.com', [complainant_email], fail_silently=False)
 
 @login_required
 def editprofile(request, user_id):
@@ -203,6 +223,10 @@ def editprofile(request, user_id):
         form = UserProfileForm(instance=profile)
     
     return render(request, 'edit_profile.html', {'form': form, 'profile': profile})
+@login_required   
+def casedetails(request, case_id):
+    case = get_object_or_404(Case, pk=case_id)
+    return render(request, 'case_detail.html', {'case': case})
 
 @login_required
 def deletecase(request, case_id):
@@ -217,9 +241,9 @@ def dashboard(request):
     total_cases = Case.objects.count()
     total_complainants = User.objects.filter(role='complainant').count()
     total_pending_cases = Case.objects.filter(status='pending').count()
-    total_solved_cases = Case.objects.filter(status='approved').count()
+    total_solved_cases = Case.objects.filter(status='solved').count()
     total_rejected_cases = Case.objects.filter(status='rejected').count()
-    total_active_appointments = Appointment.objects.count()
+    total_active_appointments = Appointment.objects.filter(appointment_status='active').count()
     
     # Fetch top 10 cases (assuming we want to show the latest or most relevant cases)
     top_cases = Case.objects.all().order_by('-date_created')[:10]

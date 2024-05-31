@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register,createprofile,createcase,dashboard,loginview, logoutview, homepage,biodatalist, appointments, cases,approvecase, rejectcase,bookappointment,editprofile,resolvecase,deletecase 
+from .views import register,createprofile,casedetails,createcase,dashboard,loginview, logoutview, homepage,biodatalist, appointments, cases,approvecase, rejectcase,bookappointment,editprofile,resolvecase,deletecase,completeappointment 
 
 urlpatterns = [
     path('register/', register, name='register'),
@@ -16,8 +16,10 @@ urlpatterns = [
     path('reject_case/<int:case_id>/', rejectcase, name='rejectcase'),
     path('resolvecase/<int:case_id>/', resolvecase, name='resolvecase'),
     path('appointment/<int:case_id>/', bookappointment, name='bookappointment'),
+    path('completeappointment/<int:case_id>/', completeappointment, name='completeappointment'),
     path('biodata/edit/<int:user_id>/', editprofile, name='editprofile'),
-     path('cases/delete/<int:case_id>/', deletecase, name='deletecase'),
+    path('cases/delete/<int:case_id>/', deletecase, name='deletecase'),
+    path('cases/<int:case_id>/', casedetails, name='casedetails'),
     
 
 ]

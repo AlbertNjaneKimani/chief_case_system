@@ -136,7 +136,7 @@
                     {% for case in cases %}
                     <tr>
                         <td>{{ case.id }}</td>
-                        <td>{{ case.title }}</td>
+                        <td> <a href="{% url 'casedetails' case.id %}">{{ case.title }}</a></td>
                         <td>{{ case.casecategory }}</td>
                         <td>{{ case.date_created|date:"Y-m-d" }}</td>
                         <td>{{ case.complainant.first_name }} {{ case.complainant.last_name }}</td>

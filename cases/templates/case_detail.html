@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointments Management</title>
+    <title>Case Details</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
@@ -39,22 +39,23 @@
         .sidebar a:hover {
             background-color: #495057; /* Darker background color on hover */
         }
-        /* Dashboard content */
+        .card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+}
+        /* Content */
         .content {
             margin-left: 250px; /* Adjust for sidebar width */
             padding: 20px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dee2e6; /* Light gray border color */
-            padding: 8px;
-            text-align: left;
-        }
-        th {
+        .case-card {
             background-color: #f8f9fa; /* Light gray background color */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .case-card h4 {
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -77,52 +78,20 @@
         </a>
     </div>
 
-    <!-- Bio Data Management content -->
+    <!-- Case Details content -->
     <div class="content">
-        <h2>Appointment Management</h2>
-        <div class="mb-3">
-            
-            <a href="{% url 'dashboard' %}" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </a>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Complainant Name</th>
-                        <th>Case</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Location</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for appointment in appointments %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ appointment.case.complainant.get_full_name }}</td>
-                        <td>Num:{{ appointment.case.id }} - {{ appointment.case.title }}</td>
-                        <td class="{% if appointment.appointment_status == 'completed' %}text-success{% elif appointment.appointment_status == 'rejected' %}text-danger{% elif appointment.appointment_status == 'active' %}text-primary{% elif appointment.appointment_status == 'pending' %}text-warning{% endif %}">
-                            {{ appointment.appointment_status }}
-                        </td>
-
-
-                        <td>{{ appointment.date }}</td>
-                        <td>{{ appointment.time }}</td>
-                        <td>{{ appointment.location }}</td>
-                        <td>
-                            <a href="{% url 'completeappointment' appointment.id %}" class="btn btn-primary btn-sm">Complete Appointment</a>
-                           
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                
-            </table>
+        <h2>Case Details</h2>
+        <a href="{% url 'cases' %}" class="btn btn-primary mb-3">
+            <i class="fas fa-arrow-left"></i> Back to Cases
+        </a>
+        <div class="case-card">
+            <h4>Case Number: {{ case.id }}</h4>
+            <p><strong>Case Name:</strong> {{ case.title }}</p>
+            <p><strong>Category:</strong> {{ case.casecategory }}</p>
+            <p><strong>Description:</strong> {{ case.description }}</p>
+            <p><strong>Date Created:</strong> {{ case.date_created|date:"Y-m-d" }}</p>
+            <p><strong>Owner:</strong> {{ case.complainant.first_name }} {{ case.complainant.last_name }}</p>
+            <p><strong>Status:</strong> <span class="{% if case.status == 'approved' %}text-success{% elif case.status == 'rejected' %}text-danger{% elif case.status == 'solved' %}text-primary{% elif case.status == 'pending' %}text-warning{% endif %}">{{ case.status }}</span></p>
         </div>
     </div>
 
