@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Biodata</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Bootstrap Datepicker CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+     <!-- Font Awesome for icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+        .form-group input {
+            height: 30px;
+            font-size: 14px;
+        }
+        .form-group select {
+            height: 30px;
+            font-size: 14px;
+        }
+        .form-group .btn {
+            font-size: 14px;
+            padding: 5px 20px;
+        }
+        .form-group {
+            margin-bottom: 10px; /* Reduce spacing between form groups */
+        }
+        .card-body {
+            padding: 15px; /* Adjust padding inside the card body */
+        }
+        .card {
+            margin-top: 20px; /* Adjust margin at the top of the card */
+        }
+        .form-container {
+            max-width: 600px; /* Reduce the form width */
+        }
+        .card-header {
+            background-color: #d3eafd; /* Light blue background color */
+            text-align: center; /* Center the text */
+            font-weight: bold; /* Make the text bold */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+    <div class="row justify-content-center">
+        <div class="col-md-8 form-container">
+            <div class="card">
+                <div class="card-header">User Biodata</div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_date_of_birth">Date of Birth:</label>
+                                <input type="text" name="date_of_birth" class="form-control datepicker" id="id_date_of_birth">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_national_id">National ID:</label>
+                                <input type="text" name="national_id" class="form-control" id="id_national_id">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_gender">Gender:</label>
+                                <select name="gender" class="form-control" id="id_gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_location">Location:</label>
+                                <input type="text" name="location" class="form-control" id="id_location">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_sublocation">Sublocation:</label>
+                                <input type="text" name="sublocation" class="form-control" id="id_sublocation">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_county">County:</label>
+                                <select name="county" class="form-control select2" id="id_county">
+                                    <option value="">Select County</option>
+                                    <option value="Baringo">Baringo</option>
+                                    <option value="Bomet">Bomet</option>
+                                    <option value="Bungoma">Bungoma</option>
+                                    <option value="Busia">Busia</option>
+                                    <option value="Elgeyo-Marakwet">Elgeyo-Marakwet</option>
+                                    <option value="Embu">Embu</option>
+                                    <option value="Garissa">Garissa</option>
+                                    <option value="Homa Bay">Homa Bay</option>
+                                    <option value="Isiolo">Isiolo</option>
+                                    <option value="Kajiado">Kajiado</option>
+                                    <option value="Kakamega">Kakamega</option>
+                                    <option value="Kericho">Kericho</option>
+                                    <option value="Kiambu">Kiambu</option>
+                                    <option value="Kilifi">Kilifi</option>
+                                    <option value="Kirinyaga">Kirinyaga</option>
+                                    <option value="Kisii">Kisii</option>
+                                    <option value="Kisumu">Kisumu</option>
+                                    <option value="Kitui">Kitui</option>
+                                    <option value="Kwale">Kwale</option>
+                                    <option value="Laikipia">Laikipia</option>
+                                    <option value="Lamu">Lamu</option>
+                                    <option value="Machakos">Machakos</option>
+                                    <option value="Makueni">Makueni</option>
+                                    <option value="Mandera">Mandera</option>
+                                    <option value="Marsabit">Marsabit</option>
+                                    <option value="Meru">Meru</option>
+                                    <option value="Migori">Migori</option>
+                                    <option value="Mombasa">Mombasa</option>
+                                    <option value="Murang'a">Murang'a</option>
+                                    <option value="Nairobi">Nairobi</option>
+                                    <option value="Nakuru">Nakuru</option>
+                                    <option value="Nandi">Nandi</option>
+                                    <option value="Narok">Narok</option>
+                                    <option value="Nyamira">Nyamira</option>
+                                    <option value="Nyandarua">Nyandarua</option>
+                                    <option value="Nyeri">Nyeri</option>
+                                    <option value="Samburu">Samburu</option>
+                                    <option value="Siaya">Siaya</option>
+                                    <option value="Taita-Taveta">Taita-Taveta</option>
+                                    <option value="Tana River">Tana River</option>
+                                    <option value="Tharaka-Nithi">Tharaka-Nithi</option>
+                                    <option value="Trans-Nzoia">Trans-Nzoia</option>
+                                    <option value="Turkana">Turkana</option>
+                                    <option value="Uasin Gishu">Uasin Gishu</option>
+                                    <option value="Vihiga">Vihiga</option>
+                                    <option value="Wajir">Wajir</option>
+                                    <option value="West Pokot">West Pokot</option>
+
+                                    <!-- Add other counties here -->
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Biodata</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Include Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    // Initialize Bootstrap Datepicker
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',  // Set the desired date format
+            autoclose: true,
+            todayHighlight: true,
+        });
+
+        // Initialize Select2 for County dropdown
+        $('.select2').select2({
+            placeholder: 'Select County',
+            allowClear: true
+        });
+    });
+</script>
+</body>
+</html>

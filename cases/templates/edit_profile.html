@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Biodata</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+        .form-group input,
+        .form-group select,
+        .form-group .btn {
+            height: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .card {
+            margin-top: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+        }
+        .card-header {
+            background-color: #d3eafd;
+            text-align: center;
+            font-weight: bold;
+        }
+        .alert {
+            font-size: 14px;
+        }
+        .container .btn-primary {
+            font-size: 14px;
+            padding: 5px 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </a>
+    <div class="row justify-content-center">
+        <div class="col-md-8 form-container">
+            <div class="card">
+                <div class="card-header">Edit User Biodata</div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_date_of_birth">Date of Birth:</label>
+                                <input type="text" name="date_of_birth" class="form-control datepicker" id="id_date_of_birth" value="{{ form.date_of_birth.value }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_national_id">National ID:</label>
+                                <input type="text" name="national_id" class="form-control" id="id_national_id" value="{{ form.national_id.value }}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_gender">Gender:</label>
+                                <select name="gender" class="form-control" id="id_gender">
+                                    <option value="">Select Gender</option>
+                                    <option value="male" {% if form.gender.value == "male" %}selected{% endif %}>Male</option>
+                                    <option value="female" {% if form.gender.value == "female" %}selected{% endif %}>Female</option>
+                                    <option value="other" {% if form.gender.value == "other" %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_location">Location:</label>
+                                <input type="text" name="location" class="form-control" id="id_location" value="{{ form.location.value }}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="id_sublocation">Sublocation:</label>
+                                <input type="text" name="sublocation" class="form-control" id="id_sublocation" value="{{ form.sublocation.value }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="id_county">County:</label>
+                                <select name="county" class="form-control select2" id="id_county">
+                                    <option value="">Select County</option>
+                                    <option value="Baringo" {% if form.county.value == "Baringo" %}selected{% endif %}>Baringo</option>
+                                    <option value="Bomet" {% if form.county.value == "Bomet" %}selected{% endif %}>Bomet</option>
+                                    <option value="Bungoma" {% if form.county.value == "Bungoma" %}selected{% endif %}>Bungoma</option>
+                                    <option value="Busia" {% if form.county.value == "Busia" %}selected{% endif %}>Busia</option>
+                                    <option value="Elgeyo-Marakwet" {% if form.county.value == "Elgeyo-Marakwet" %}selected{% endif %}>Elgeyo-Marakwet</option>
+                                    <option value="Embu" {% if form.county.value == "Embu" %}selected{% endif %}>Embu</option>
+                                    <option value="Garissa" {% if form.county.value == "Garissa" %}selected{% endif %}>Garissa</option>
+                                    <option value="Homa Bay" {% if form.county.value == "Homa Bay" %}selected{% endif %}>Homa Bay</option>
+                                    <option value="Isiolo" {% if form.county.value == "Isiolo" %}selected{% endif %}>Isiolo</option>
+                                    <option value="Kajiado" {% if form.county.value == "Kajiado" %}selected{% endif %}>Kajiado</option>
+                                    <option value="Kakamega" {% if form.county.value == "Kakamega" %}selected{% endif %}>Kakamega</option>
+                                    <option value="Kericho" {% if form.county.value == "Kericho" %}selected{% endif %}>Kericho</option>
+                                    <option value="Kiambu" {% if form.county.value == "Kiambu" %}selected{% endif %}>Kiambu</option>
+                                    <option value="Kilifi" {% if form.county.value == "Kilifi" %}selected{% endif %}>Kilifi</option>
+                                    <option value="Kirinyaga" {% if form.county.value == "Kirinyaga" %}selected{% endif %}>Kirinyaga</option>
+                                    <option value="Kisii" {% if form.county.value == "Kisii" %}selected{% endif %}>Kisii</option>
+                                    <option value="Kisumu" {% if form.county.value == "Kisumu" %}selected{% endif %}>Kisumu</option>
+                                    <option value="Kitui" {% if form.county.value == "Kitui" %}selected{% endif %}>Kitui</option>
+                                    <option value="Kwale" {% if form.county.value == "Kwale" %}selected{% endif %}>Kwale</option>
+                                    <option value="Laikipia" {% if form.county.value == "Laikipia" %}selected{% endif %}>Laikipia</option>
+                                    <option value="Lamu" {% if form.county.value == "Lamu" %}selected{% endif %}>Lamu</option>
+                                    <option value="Machakos" {% if form.county.value == "Machakos" %}selected{% endif %}>Machakos</option>
+                                    <option value="Makueni" {% if form.county.value == "Makueni" %}selected{% endif %}>Makueni</option>
+                                    <option value="Mandera" {% if form.county.value == "Mandera" %}selected{% endif %}>Mandera</option>
+                                    <option value="Marsabit" {% if form.county.value == "Marsabit" %}selected{% endif %}>Marsabit</option>
+                                    <option value="Meru" {% if form.county.value == "Meru" %}selected{% endif %}>Meru</option>
+                                    <option value="Migori" {% if form.county.value == "Migori" %}selected{% endif %}>Migori</option>
+                                    <option value="Mombasa" {% if form.county.value == "Mombasa" %}selected{% endif %}>Mombasa</option>
+                                    <option value="Murang'a" {% if form.county.value == "Murang'a" %}selected{% endif %}>Murang'a</option>
+                                    <option value="Nairobi" {% if form.county.value == "Nairobi" %}selected{% endif %}>Nairobi</option>
+                                    <option value="Nakuru" {% if form.county.value == "Nakuru" %}selected{% endif %}>Nakuru</option>
+                                    <option value="Nandi" {% if form.county.value == "Nandi" %}selected{% endif %}>Nandi</option>
+                                    <option value="Narok" {% if form.county.value == "Narok" %}selected{% endif %}>Narok</option>
+                                    <option value="Nyamira" {% if form.county.value == "Nyamira" %}selected{% endif %}>Nyamira</option>
+                                    <option value="Nyandarua" {% if form.county.value == "Nyandarua" %}selected{% endif %}>Nyandarua</option>
+                                    <option value="Nyeri" {% if form.county.value == "Nyeri" %}selected{% endif %}>Nyeri</option>
+                                    <option value="Samburu" {% if form.county.value == "Samburu" %}selected{% endif %}>Samburu</option>
+                                    <option value="Siaya" {% if form.county.value == "Siaya" %}selected{% endif %}>Siaya</option>
+                                    <option value="Taita-Taveta" {% if form.county.value == "Taita-Taveta" %}selected{% endif %}>Taita-Taveta</option>
+                                    <option value="Tana River" {% if form.county.value == "Tana River" %}selected{% endif %}>Tana River</option>
+                                    <option value="Tharaka-Nithi" {% if form.county.value == "Tharaka-Nithi" %}selected{% endif %}>Tharaka-Nithi</option>
+                                    <option value="Trans Nzoia" {% if form.county.value == "Trans Nzoia" %}selected{% endif %}>Trans Nzoia</option>
+                                    <option value="Turkana" {% if form.county.value == "Turkana" %}selected{% endif %}>Turkana</option>
+                                    <option value="Uasin Gishu" {% if form.county.value == "Uasin Gishu" %}selected{% endif %}>Uasin Gishu</option>
+                                    <option value="Vihiga" {% if form.county.value == "Vihiga" %}selected{% endif %}>Vihiga</option>
+                                    <option value="Wajir" {% if form.county.value == "Wajir" %}selected{% endif %}>Wajir</option>
+                                    <option value="West Pokot" {% if form.county.value == "West Pokot" %}selected{% endif %}>West Pokot</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Save Biodata</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+        });
+        $('.select2').select2({
+            placeholder: 'Select County',
+            allowClear: true
+        });
+    });
+</script>
+</body>
+</html>

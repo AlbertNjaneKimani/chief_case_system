@@ -1,0 +1,43 @@
+/* Custom styles */
+.content {
+    margin-left: 250px; /* Adjust for sidebar width */
+    padding: 20px;
+}
+.card {
+    background-color: #fff; /* White background color */
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s; /* Add transition effect */
+}
+.card:hover {
+    transform: translateY(-5px); /* Add hover effect */
+}
+.card-title {
+    font-size: 20px;
+    color: #333; /* Dark text color */
+}
+.card-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff; /* Primary color for text */
+}
+.chart-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff; /* White background color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #dee2e6; /* Light gray border color */
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f8f9fa; /* Light gray background color */
+}

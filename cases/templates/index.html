@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif; 
+        }
+        .jumbotron {
+            background-color: #00b7ff; 
+            color: #ffffff; 
+            padding: 3rem 2rem;
+        }
+        .lead {
+            font-size: 1.25rem;
+        }
+        .btn-get-started {
+            background-color: #28a745; 
+            color: #ffffff; 
+            font-size: 1.1rem; 
+            padding: 10px 20px; 
+            border-radius: 25px; 
+            transition: background-color 0.3s ease; 
+        }
+        .btn-get-started:hover {
+            background-color: #218838; 
+        }
+        .btn-get-started a {
+            color: #ffffff; 
+            text-decoration: none; 
+            display: block; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to Case Management System</h1>
+        <p class="lead">Now you can easily report your cases such as land disputes, marriage disputes, theft, etc., with ease.</p>
+        <button class="btn btn-success btn-get-started"><a href="{% url 'loginview' %}">Get Started</a></button>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Land Disputes</h5>
+                    <p class="card-text">You can now Easily Report  Land Cases.These are disagreements over land ownership or boundaries. In Kenya, they are common due to historical issues, population growth, and unclear land records. Chiefs often mediate these disputes.</p>
+                    <a href="{% url 'loginview' %}">Get Started</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Marriage Cases</h5>
+                    <p class="card-text">You can now Easily Report  Marriage cases. These are cases that might arise in marriage. Chiefs can witness and register customary marriages, but don't officiate them. They might also intervene in minor marital disputes to try and reconcile couples</p>
+                    <a href="{% url 'loginview' %}">Get Started</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Violence</h5>
+                    <p class="card-text">You can now Easily Report Violence Cases. This refers to any physical force or threat used to harm someone. Chiefs handle minor assaults and work with police for more serious crimes</p>
+                    <a href="{% url 'loginview' %}">Get Started</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Theft</h5>
+                    <p class="card-text">You can now Easily Report Minor Theft Cases. Taking someone's property without permission. Chiefs deal with petty theft cases</p>
+                    <a href="{% url 'loginview' %}">Get Started</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Birth Certificate</h5>
+                    <p class="card-text">An official document recording a child's birth. Chiefs are responsible for issuing birth certificates in their locations</p>
+                    <a href="{% url 'loginview' %}">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

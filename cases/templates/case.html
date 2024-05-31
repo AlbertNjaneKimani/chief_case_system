@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Case</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Bootstrap CSS or any other styling libraries -->
+ <!-- Font Awesome for icons -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+</head>
+<body>
+    <div class="container mt-5">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+        <div class="row justify-content-center">
+            <div class="col-md-8 form-container">
+                <div class="card">
+                    <div class="card-header">Create Case</div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_title">Title:</label>
+                                <input type="text" name="title" class="form-control" id="id_title">
+                            </div>
+                            <div class="form-group">
+                                <label for="id_description">Description:</label>
+                                <textarea name="description" class="form-control" id="id_description"></textarea>
+                            </div>
+                            <!-- Your existing HTML content -->
+                            <div class="form-group">
+                                <label for="id_casecategory">Case Category:</label>
+                                <select name="casecategory" class="form-control select2" id="id_casecategory">
+                                    <option value="">Select Case Category</option>
+                                    <option value="landdispute">Land Dispute</option>
+                                    <option value="nationalid">NationalId</option>
+                                    <option value="birthcertifiacte">Birth Certificate</option>
+                                    <option value="domesticdisputes">Domestic Disputes</option>
+                                    <option value="marriage">Marriage</option>
+                                    <option value="civil">Civil Disputes</option>
+                                    <option value="succession">Succession Issues</option>
+                                    <option value="theft">Theft Issues</option>
+                                    <option value="alcoholanddrugs">Alcohol and Drugs</option>
+                                    <option value="robery">Robery</option>
+                                    <option value="others">Others</option>
+                                    <!-- Add more options for categories -->
+                                </select> 
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Case</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: 'Select Case Category',
+            allowClear: true,
+            width: '100%' // Adjust the width as needed
+        });
+    });
+</script>
+
+    <!-- Include Bootstrap JS or any other required scripts -->
+</body>
+</html>
